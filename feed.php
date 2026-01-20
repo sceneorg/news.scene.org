@@ -1,0 +1,14 @@
+<?php
+include_once("bootstrap.inc.php");
+
+switch($_GET["format"])
+{
+  case "json";
+    header("Content-type: application/json");
+    die(getFeedCacheJSON());
+    break;
+  case "rss";
+    header("Content-type: application/rss+xml");
+    die(getFeedCacheRSS());
+    break;
+}
