@@ -141,7 +141,7 @@ END;
   {
     $id = (int)$item->id;
     $title = _html($item->title);
-    $text = _html($item->contents);
+    $html = $item->contents;
     $date = date("r",strtotime($item->retrievalDate));
 
     $output .= <<<END
@@ -149,7 +149,7 @@ END;
         <guid isPermaLink="false">news.scene.org/{$id}</guid>
         <link>https://news.scene.org/news/</link>
         <title>{$title}</title>
-        <description><![CDATA[{$text}]]></description>
+        <description><![CDATA[{$html}]]></description>
         <pubDate>{$date}</pubDate>
       </item>
 
