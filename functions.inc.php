@@ -125,7 +125,7 @@ function formatFeedToRSS($items)
   $output .= <<<END
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Scene.org nes</title>
+    <title>Scene.org News</title>
     <link>https://news.scene.org</link>
     <description>Demoscene news service operated by Scene.org</description>
     <language>en-us</language>
