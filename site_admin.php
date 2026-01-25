@@ -25,7 +25,7 @@ foreach($items as $item)
   printf("<input type='submit' name='decision' value='approved'>\n");
   printf("<input type='submit' name='decision' value='rejected'>\n");
   echo "<article>\n";
-  printf("  <h2><a href='#'>%s</a></h2>\n",_html($item->title));
+  printf("  <h2><a href='%s'>%s</a></h2>\n",_html(getNewsUrl($item)),_html($item->title));
   printf("  <div>%s</div>\n",processPost($item->contents));
   echo "</article>\n";
   echo "</form>\n\n";

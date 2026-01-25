@@ -7,12 +7,19 @@ $perPage = 25;
 
 $items = array();
 $total = 0;
-retrieveFeed($items, $total, $page, $perPage);
+if (isset($_GET["id"]))
+{
+  $items = SQLLib::SelectRows(sprintf_esc("SELECT * FROM entries WHERE id=%d",$_GET["id"]));
+}
+else
+{
+  retrieveFeed($items, $total, $page, $perPage);
+}
 
 foreach($items as $item)
 {
   echo "<article>\n";
-  printf("  <h2><a href='#'>%s</a></h2>\n",_html($item->title));
+  printf("  <h2><a href='%s'>%s</a></h2>\n",_html(getNewsUrl($item)),_html($item->title));
   printf("  <div>%s</div>\n",processPost($item->contents));
   if ($isAdmin)
   {
@@ -21,7 +28,10 @@ foreach($items as $item)
   echo "</article>\n";
 }
 
-paginator($total, $perPage);
+if ($total > 1)
+{
+  paginator($total, $perPage);
+}
 
 include_once("footer.inc.php");
 ?>

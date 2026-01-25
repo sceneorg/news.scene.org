@@ -117,6 +117,11 @@ function retrieveFeed(&$items, &$total, $page, $perPage)
   $total = SQLLib::SelectRow("SELECT FOUND_ROWS() AS total")->total;
 }
 
+function getNewsUrl($obj)
+{
+  return ROOT_URL."news/".(int)$obj->id."/".hashify($obj->title);
+}
+
 function formatFeedToRSS($items)
 {
   $output = '<'.'?xml version="1.0" encoding="UTF-8" ?'.'>'."\n";
@@ -143,11 +148,12 @@ END;
     $title = _html($item->title);
     $html = $item->contents;
     $date = date("r",strtotime($item->retrievalDate));
-
+    $url = getNewsUrl($item);
+    
     $output .= <<<END
       <item>
         <guid isPermaLink="false">news.scene.org/{$id}</guid>
-        <link>https://news.scene.org/news/</link>
+        <link>{$url}</link>
         <title>{$title}</title>
         <description><![CDATA[{$html}]]></description>
         <pubDate>{$date}</pubDate>
@@ -192,12 +198,16 @@ function getFeedCacheJSON()
     $total = 0;
     retrieveFeed($items, $total, $page, $perPage);
     
-    $items = array_map(function($i){ 
+    $result = array();
+    $result["lastBuildDate"] = date("r");
+    $result["items"] = array_map(function($i){ 
       $i->id = (int)$i->id;
-      $i->retrievalDate = date("r",strtotime($i->retrievalDate));
+      $i->pubDate = date("r",strtotime($i->retrievalDate));
+      unset($i->retrievalDate);
+      $i->url = getNewsUrl($i);
       return $i; 
     }, $items);
-    file_put_contents($filename,json_encode($items,JSON_PRETTY_PRINT));
+    file_put_contents($filename,json_encode($result,JSON_PRETTY_PRINT));
   }
   
   return file_get_contents($filename);

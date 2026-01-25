@@ -3,6 +3,8 @@ include_once("rewriter.inc.php");
 
 $rewriter = new Rewriter();
 $rewriter->addRules(array(
+  "^\/+news\/([0-9]+).*$" => "index.php?id=$1",
+
   "^\/+login\/?$" => "login.php",
   "^\/+logout\/?$" => "logout.php",
   
