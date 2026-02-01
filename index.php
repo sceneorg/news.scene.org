@@ -9,7 +9,14 @@ $total = 0;
 if (isset($_GET["id"]))
 {
   $items = SQLLib::SelectRows(sprintf_esc("SELECT * FROM entries WHERE id=%d",$_GET["id"]));
-  $TITLE = reset($items)->title;
+  $item = reset($items);
+  $TITLE = $item->title;
+  $metaValues["og:type"] = "website";
+  $metaValues["og:site_name"] = "Scene.org Demoscene News Service";
+  $metaValues["twitter:title"] = 
+  $metaValues["og:title"] = $item->title;
+  $metaValues["twitter:description"] = 
+  $metaValues["og:description"] = shortify(preg_replace("/[\\r\\n]/"," ",strip_tags($item->contents)), 300);
 }
 else
 {

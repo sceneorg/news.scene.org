@@ -6,6 +6,12 @@
   <link rel="alternate" href="<?=ROOT_URL?>feeds/rss/" type="application/rss+xml" title="News feed" />
   <link rel="stylesheet" type="text/css" href="<?=ROOT_URL?>style.css?1747393803" media="screen" />
   <link rel="alternate icon" href="<?=ROOT_URL?>favicon.png" type="image/png" />
+<?php
+  if ($metaValues) foreach ($metaValues as $k=>$v)
+  {
+    printf("  <meta property=\"%s\" content=\"%s\"/>\n",$k,_html($v));
+  }
+?>
 </head>
 <body>
 
