@@ -25,6 +25,10 @@ $IITLE = "admin";
 include_once("header.inc.php");
 
 $items = SQLLib::SelectRows("SELECT * FROM entries WHERE status='pending' ORDER BY id DESC");
+if (!$items)
+{
+  printf("Queue is empty, nothing to do!");
+}
 foreach($items as $item)
 {
   echo "<form method='post'>\n";
