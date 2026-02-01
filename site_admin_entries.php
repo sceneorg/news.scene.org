@@ -1,6 +1,12 @@
 <?php
 include_once("bootstrap.inc.php");
 
+if (!@$_SESSION["userID"])
+{
+  header("Location: ".ROOT_URL."login");
+  exit();
+}
+
 if (!$isAdmin)
 {
   header("Location: ".ROOT_URL);
