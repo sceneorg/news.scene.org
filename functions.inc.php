@@ -152,7 +152,7 @@ END;
     
     $output .= <<<END
       <item>
-        <guid isPermaLink="false">news.scene.org/{$id}</guid>
+        <guid isPermaLink="true">{$url}</guid>
         <link>{$url}</link>
         <title>{$title}</title>
         <description><![CDATA[{$html}]]></description>
