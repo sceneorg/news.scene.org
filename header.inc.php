@@ -3,6 +3,7 @@
 <head>
   <title>Scene.org News<?=($TITLE?" :: "._html($TITLE):"")?></title>
   <link rel="alternate" href="<?=ROOT_URL?>feeds/rss/" type="application/rss+xml" title="News feed">
+  <link rel="stylesheet" type="text/css" href="<?=ROOT_URL?>style.css?1747393803" media="screen" />  
 </head>
 <body>
 
