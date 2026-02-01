@@ -38,6 +38,7 @@ foreach($items as $item)
   echo "<article>\n";
   printf("  <h2><a href='%s'>%s</a></h2>\n",_html(getNewsUrl($item)),_html($item->title));
   printf("  <div>%s</div>\n",processPost($item->contents));
+  printf("  <time datetime='%s' title='%s'>%s</time>\n",$item->retrievalDate,$item->retrievalDate,dateDiffReadable(time(),$item->retrievalDate));
   echo "</article>\n";
   echo "</form>\n\n";
 }
