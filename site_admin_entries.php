@@ -25,7 +25,7 @@ if (@$_POST["id"])
   exit();
 }
 
-$IITLE = "admin";
+$TITLE = "admin";
 include_once("header.inc.php");
 
 if (@$_GET["id"])
