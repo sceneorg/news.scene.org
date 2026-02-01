@@ -187,6 +187,22 @@ article a {
   font-weight: 700;
 }
 
+#paginator ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 0 2rem;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+}
+
+#paginator ul a {
+      font-weight: 600; 
+}
+
 footer {
   border-top: 2px solid var(--line);
   font-size: 0.75rem;
@@ -265,4 +281,5 @@ form input[type=submit]:hover
   footer {
     padding: 1rem 1rem;
   }
+
 }
