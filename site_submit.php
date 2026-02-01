@@ -9,11 +9,13 @@ if (!@$_SESSION["userID"])
 
 if (@$_POST["newsTitle"] && @$_POST["newsContents"])
 {
+  $SceneIDuser = $sceneID->Me();
+
   SQLLib::InsertRow("entries",array(
     "retrievalDate" => date("Y-m-d H:i:s"),
     "postDate" => date("Y-m-d H:i:s"),
     "title" => $_POST["newsTitle"],
-    "contents" => processPost($_POST["newsContents"]),
+    "contents" => processPost($_POST["newsContents"]."\n<br/>[<b>Submitted by "._html($SceneIDuser["user"]["display_name"])."</b>]"),
     "submittedUserID" => (int)$_SESSION["userID"],
   ));
   header("Location: ".ROOT_URL."submit?success");
