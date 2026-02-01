@@ -1,6 +1,5 @@
 <?php
 include_once("bootstrap.inc.php");
-include_once("header.inc.php");
 
 $page = isset($_GET["p"]) ? ((int)$_GET["p"] - 1) : 0;
 $perPage = 25;
@@ -10,11 +9,14 @@ $total = 0;
 if (isset($_GET["id"]))
 {
   $items = SQLLib::SelectRows(sprintf_esc("SELECT * FROM entries WHERE id=%d",$_GET["id"]));
+  $TITLE = reset($items)->title;
 }
 else
 {
   retrieveFeed($items, $total, $page, $perPage);
 }
+
+include_once("header.inc.php");
 
 foreach($items as $item)
 {

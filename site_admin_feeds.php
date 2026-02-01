@@ -28,6 +28,7 @@ if(@$_POST["deleteID"])
   exit();
 }
 
+$IITLE = "admin";
 include_once("header.inc.php");
 
 $items = SQLLib::SelectRows("SELECT * FROM feeds");

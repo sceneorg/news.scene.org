@@ -22,12 +22,15 @@ if (@$_POST["newsTitle"] && @$_POST["newsContents"])
   exit();
 }
 
+$IITLE = "submit a news item!";
 include_once("header.inc.php");
 
 if (isset($_GET["success"]))
 {
   echo "<div class='success'>Thank you for your submission! It is now in a queue and will be processed eventually!</div>";
 }
+else
+{
 ?>
 
 <link rel="stylesheet" type="text/css" href="<?=ROOT_URL?>jodit.min.css"/>
@@ -55,5 +58,7 @@ Jodit.make('#newsContents',{
 </script>
 
 <?php
+}
+
 include_once("footer.inc.php");
 ?>
