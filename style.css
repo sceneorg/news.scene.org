@@ -240,6 +240,14 @@ main form label {
   width: 100%;
 }
 
+main form article {
+  margin: 0;
+  padding: 0;
+  box-shadow: 0px 0 0px !important;
+  border: 0;
+  order: -1;
+}
+
 form input 
 {
   width: 100%;
@@ -258,6 +266,46 @@ form input[type=submit]
 form input[type=submit]:hover
 {
   background: var(--accent);
+}
+
+form input[value="approved"]{
+  background-color: #47704F;
+  &:hover {
+    background-color: #77907f !important;
+  }
+  order: 3;
+}
+
+form input[value="rejected"]{
+  background-color: #CF2839;
+  &:hover {
+    background-color: #df4859 !important;
+  }
+}
+
+main :not(#paginator) ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+
+main form label input[type="radio"] {
+  display: inline;
+  width: fit-content;
+}
+
+main li:has(input[name="deleteID"]) {
+  display: flex;
+  margin-bottom: 0.3em;
+}
+
+main form:has(> input[name="deleteID"] ) {
+  margin: 0 0.5em;
+  padding: 0;
+  border: 0;
+  box-shadow: 0 0 0 !important;
+  width: fit-content;
 }
 
 
@@ -291,7 +339,3 @@ form input[type=submit]:hover
   }
 
 }
-
-
-
-
