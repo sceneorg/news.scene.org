@@ -55,7 +55,8 @@ Jodit.make('#newsContents',{
   "buttons": "cut,copy,undo,redo,|,bold,italic,underline,ul,ol,link,|,source",
   "allowResizeY": true,
   "height": 400,
-  "commandToHotkeys": {}
+  "commandToHotkeys": {},
+  "link": { "processVideoLink": false, },
 });
 </script>
 
