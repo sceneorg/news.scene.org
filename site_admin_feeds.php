@@ -56,12 +56,16 @@ $TITLE = "admin";
 include_once("header.inc.php");
 
 $items = SQLLib::SelectRows("SELECT * FROM feeds");
-echo "<ul>\n";
+echo "<table>\n";
 foreach($items as $item)
 {
-  printf("  <li><form method='post'><input type='hidden' name='deleteID' value='%d'/><input type='submit' value='Delete'/></form><a href='%s'>%s</a></li>\n",$item->id,_html($item->url),_html($item->url));
+  printf("<tr>\n");
+  printf("  <td><form method='post'><input type='hidden' name='deleteID' value='%d'/><input type='submit' value='Delete'/></form></td>\n",$item->id,_html($item->url),_html($item->url));
+  printf("  <td><a href='%s'>%s</a></td>\n",$item->id,_html($item->url),_html($item->url));
+  printf("  <td><span class='statuscode-%s'>%d</span></td>\n",$item->lastHTTPResult>=200&&$item->lastHTTPResult<=399?"success":"error",$item->lastHTTPResult);
+  printf("</tr>\n");
 }
-echo "</ul>\n";
+echo "</table>\n";
 
 echo "<form method='post'><input type='url' name='addUrl'/><input type='submit' value='Add'/></form>";
 
