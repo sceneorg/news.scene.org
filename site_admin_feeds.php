@@ -15,8 +15,32 @@ if (!$isAdmin)
 
 if(@$_POST["addUrl"])
 {
-  SQLLib::InsertRow("feeds",array("url"=>$_POST["addUrl"]));
-  header("Location: ".ROOT_URL."admin/feeds");
+  $sideload = new Sideload();
+  $result = $sideload->Request($_POST["addUrl"]);
+
+  if ($result)
+  {
+    $items = parseFeedToItems($result);
+    if ($items)
+    {
+      $feedID = SQLLib::InsertRow("feeds",array("url"=>$_POST["addUrl"]));
+      foreach($items as $item)
+      {
+        SQLLib::InsertRow("entries",array(
+          "retrievalDate" => $item["postDate"],
+          "postDate" => $item["postDate"],
+          "title" => $item["title"],
+          "contents" => $item["contents"],
+          "sourceFeedID" => $feedID,
+          "sourceFeedGUID" => $item["guid"],
+          "status" => "approved",
+        ));
+      }
+      header("Location: ".ROOT_URL."admin/feeds/?success");
+      exit();
+    }
+  }
+  header("Location: ".ROOT_URL."admin/feeds/?error");
   exit();
 }
 

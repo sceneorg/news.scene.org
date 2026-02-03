@@ -16,25 +16,17 @@ $result = $sideload->Request($feed->url);
 
 if ($result)
 {
-  $rss = new SimpleXMLElement($result);
-  if ($rss && $rss->channel)
+  $items = parseFeedToItems($result);
+  foreach($items as $item)
   {
-    $feedTitle = $rss->channel->title;
-    foreach($rss->channel->item as $item)
-    {
-      $row = SQLLib::SelectRow(sprintf_esc("SELECT 1 FROM entries WHERE sourceFeedID=%d AND sourceFeedGUID='%s'",$feed->id,$item->guid));
-      if (!$row)
-      {
-        SQLLib::InsertRow("entries",array(
-          "retrievalDate" => $date,
-          "postDate" => $item->pubDate ? date("Y-m-d H:i:s",strtotime($item->pubDate)) : $date,
-          "title" => $item->title,
-          "contents" => sprintf("<p>[ <b>%s</b> ] <a href=\"%s\">%s</a></p>\n%s\n",_html($feedTitle),_html($item->link),_html($item->title),processPost($item->description)),
-          "sourceFeedID" => $feed->id,
-          "sourceFeedGUID" => $item->guid,
-        ));
-      }
-    }
+    SQLLib::InsertRow("entries",array(
+      "retrievalDate" => $date,
+      "postDate" => $item["postDate"],
+      "title" => $item["title"],
+      "contents" => $item["contents"],
+      "sourceFeedID" => $feed->id,
+      "sourceFeedGUID" => $item->guid,
+    ));
   }
 }
 
