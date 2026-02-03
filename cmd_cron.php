@@ -25,7 +25,7 @@ if ($result)
       "title" => $item["title"],
       "contents" => $item["contents"],
       "sourceFeedID" => $feed->id,
-      "sourceFeedGUID" => $item->guid,
+      "sourceFeedGUID" => $item["guid"],
     ));
   }
 }
