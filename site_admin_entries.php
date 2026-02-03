@@ -69,13 +69,27 @@ Jodit.make('#newsContents',{
 }
 else
 {
-  $items = SQLLib::SelectRows("SELECT * FROM entries ORDER BY id DESC");
-  echo "<ul>\n";
+  $page = isset($_GET["p"]) ? ((int)$_GET["p"] - 1) : 0;
+  $perPage = 25;
+
+  $items = SQLLib::SelectRows(sprintf_esc("SELECT SQL_CALC_FOUND_ROWS id, title, status, retrievalDate FROM entries ORDER BY retrievalDate DESC, postDate DESC LIMIT %d OFFSET %d",$perPage, $page * $perPage));
+  $total = SQLLib::SelectRow("SELECT FOUND_ROWS() AS total")->total;
+
+  echo "<table id='adminEntryTable'>\n";
   foreach($items as $item)
   {
-    printf("  <li><a href='".ROOT_URL."admin/entries/?id=%d'>%s</a></li>\n",$item->id,_html($item->title));
+    printf("<tr>\n");
+    printf("  <td><time datetime='%s' title='%s'>%s</time></td>\n",$item->retrievalDate,$item->retrievalDate,dateDiffReadable(time(),$item->retrievalDate));
+    printf("  <td class='status-%s'>%s</td>\n",$item->status,$item->status);
+    // TODO add feed or submitter
+    printf("  <td><a href='".ROOT_URL."admin/entries/?id=%d'>%s</a></td>\n",$item->id,_html($item->title));
+    printf("</tr>\n");
   }
-  echo "</ul>\n";
+  echo "</table>\n";
+  if ($total > 1)
+  {
+    paginator($total, $perPage);
+  }
 }
 
 include_once("footer.inc.php");
