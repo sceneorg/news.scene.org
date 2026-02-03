@@ -153,6 +153,16 @@ nav a:hover {
   color: var(--muted);
 }
 
+#adminMenu .pendingCount {
+  background: red;
+  color: white;
+  border-radius: 8px;
+  display: inline-block;
+  margin-left: 5px;
+  width: 16px;
+  text-align: center;
+}
+
 article {
   background: #fff;
   padding: 1.75rem;

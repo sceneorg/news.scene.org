@@ -25,10 +25,12 @@
       <li><a href="<?=ROOT_URL?>feeds/rss/">RSS</a></li>
       <li><a href="<?=ROOT_URL?>feeds/json/">JSON</a></li>
     </ul>
-<?php if ($isAdmin) {?>
+<?php if ($isAdmin) {
+  $c = SQLLib::SelectRow("SELECT COUNT(*) AS c FROM entries WHERE status='pending'")->c;
+  ?>
     <ul id='adminMenu'>
       <li>Admin:</li>
-      <li><a href="<?=ROOT_URL?>admin/">Approval queue</a></li>
+      <li><a href="<?=ROOT_URL?>admin/">Approval queue<?=($c?sprintf("<span class='pendingCount'>%d</span>",$c):"")?></a></li>
       <li><a href="<?=ROOT_URL?>admin/entries/">All items</a></li>
       <li><a href="<?=ROOT_URL?>admin/feeds/">Feeds</a></li>
     </ul>
