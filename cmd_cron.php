@@ -17,16 +17,24 @@ $result = $sideload->Request($feed->url);
 if ($result)
 {
   $items = parseFeedToItems($result);
-  foreach($items as $item)
+  if ($items)
   {
-    SQLLib::InsertRow("entries",array(
-      "retrievalDate" => $date,
-      "postDate" => $item["postDate"],
-      "title" => $item["title"],
-      "contents" => $item["contents"],
-      "sourceFeedID" => $feed->id,
-      "sourceFeedGUID" => $item["guid"],
-    ));
+    $guids = array_map(function($i){ return $i->sourceFeedGUID; }, SQLLib::SelectRows(sprintf_esc("SELECT sourceFeedGUID FROM entries WHERE sourceFeedID = %d",$feed->id)));
+    foreach($items as $item)
+    {
+      if(in_array($item["guid"],$guids))
+      {
+        continue;
+      }
+      SQLLib::InsertRow("entries",array(
+        "retrievalDate" => $date,
+        "postDate" => $item["postDate"],
+        "title" => $item["title"],
+        "contents" => $item["contents"],
+        "sourceFeedID" => $feed->id,
+        "sourceFeedGUID" => $item["guid"],
+      ));
+    }
   }
 }
 
