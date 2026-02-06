@@ -11,4 +11,8 @@ switch($_GET["format"])
     header("Content-type: application/rss+xml");
     die(getFeedCacheRSS());
     break;
+  case "atom";
+    header("Content-type: application/atom+xml");
+    die(getFeedCacheAtom());
+    break;
 }

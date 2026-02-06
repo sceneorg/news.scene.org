@@ -127,16 +127,17 @@ function formatFeedToRSS($items)
   $output = '<'.'?xml version="1.0" encoding="UTF-8" ?'.'>'."\n";
   $date = date("r");
   $year = date("Y");
+  $root = ROOT_URL;
   $output .= <<<END
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Scene.org News</title>
-    <link>https://news.scene.org</link>
+    <link>{$root}</link>
     <description>Demoscene news service operated by Scene.org</description>
     <language>en-us</language>
     <docs>http://feedvalidator.org/docs/rss2.html</docs>
 
-    <atom:link href="https://news.scene.org/feeds/rss/" rel="self" type="application/rss+xml" />
+    <atom:link href="{$root}/feeds/rss/" rel="self" type="application/rss+xml" />
 
     <lastBuildDate>{$date}</lastBuildDate>
     <copyright>Copyright {$year} scene.org</copyright>
@@ -168,6 +169,54 @@ END;
   return $output;
 }
 
+function formatFeedToAtom($items)
+{
+  $output = '<'.'?xml version="1.0" encoding="UTF-8" ?'.'>'."\n";
+  $date = date("c");
+  $year = date("Y");
+  $root = ROOT_URL;
+  $output .= <<<END
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Scene.org News</title>
+  <link href="{$root}feeds/atom/" rel="self" />
+  <link href="{$root}" />
+  <id>{$root}</id>
+  <updated>{$date}</updated>
+  
+END;
+  foreach ($items as $item)
+  {
+    $id = (int)$item->id;
+    $title = _html($item->title);
+    $html = $item->contents;
+    $date = date("c",strtotime($item->retrievalDate));
+    $url = getNewsUrl($item);
+    
+    $output .= <<<END
+  <entry>
+    <title>{$title}</title>
+    <link href="{$url}" />
+    <id>{$url}</id>
+    <published>{$date}</published>
+    <updated>{$date}</updated>
+    <content type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        {$html}
+      </div>
+    </content>
+    <author>
+      <name>Scene.org</name>
+    </author>
+  </entry>
+  END;
+  }
+  $output .= <<<END
+</feed>
+END;
+  return $output;
+}
+
 function getFeedCacheRSS()
 {
   @mkdir("cache",0775);
@@ -181,6 +230,24 @@ function getFeedCacheRSS()
     retrieveFeed($items, $total, $page, $perPage);
     
     file_put_contents($filename,formatFeedToRSS($items));
+  }
+  
+  return file_get_contents($filename);
+}
+
+function getFeedCacheAtom()
+{
+  @mkdir("cache",0775);
+  $filename = "cache/feed_cache.atom";
+  if (!file_exists($filename))
+  {
+    $page = 0;
+    $perPage = 10;
+    $items = array();
+    $total = 0;
+    retrieveFeed($items, $total, $page, $perPage);
+    
+    file_put_contents($filename,formatFeedToAtom($items));
   }
   
   return file_get_contents($filename);
@@ -217,6 +284,7 @@ function flushCaches()
 {
   @unlink("cache/feed_cache.rss");
   @unlink("cache/feed_cache.json");
+  @unlink("cache/feed_cache.atom");
 }
 
 function parseFeedToItems($feedString)

@@ -11,6 +11,7 @@ $rewriter->addRules(array(
   "^\/+submit\/?$" => "site_submit.php",
 
   "^\/+feeds\/rss\/?$" => "feed.php?format=rss",
+  "^\/+feeds\/atom\/?$" => "feed.php?format=atom",
   "^\/+feeds\/json\/?$" => "feed.php?format=json",
 
   "^\/+admin\/?$" => "site_admin.php",
