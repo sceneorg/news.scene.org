@@ -20,10 +20,17 @@ if(@$_POST["addUrl"])
 
   if ($result)
   {
-    $items = parseFeedToItems($result);
+    $title = "";
+    $items = parseFeedToItems($result, $feedTitle);
     if ($items)
     {
-      $feedID = SQLLib::InsertRow("feeds",array("url"=>$_POST["addUrl"]));
+      $date = date("Y-m-d H:i:s");
+      $feedID = SQLLib::InsertRow("feeds",array(
+        "url"=>$_POST["addUrl"],
+        "title"=>$feedTitle,
+        "lastChecked"=>$date,
+        "lastHTTPResult"=>$sideload->httpReturnCode
+      ));
       foreach($items as $item)
       {
         SQLLib::InsertRow("entries",array(
@@ -60,9 +67,10 @@ echo "<table>\n";
 foreach($items as $item)
 {
   printf("<tr>\n");
-  printf("  <td><form method='post'><input type='hidden' name='deleteID' value='%d'/><input type='submit' value='Delete'/></form></td>\n",$item->id,_html($item->url),_html($item->url));
+  printf("  <td>%s</td>\n",_html($item->title));
   printf("  <td><a href='%s'>%s</a></td>\n",$item->id,_html($item->url),_html($item->url));
   printf("  <td><span class='statuscode-%s'>%d</span></td>\n",$item->lastHTTPResult>=200&&$item->lastHTTPResult<=399?"success":"error",$item->lastHTTPResult);
+  printf("  <td><form method='post'><input type='hidden' name='deleteID' value='%d'/><input type='submit' value='Delete'/></form></td>\n",$item->id,_html($item->url),_html($item->url));
   printf("</tr>\n");
 }
 echo "</table>\n";
