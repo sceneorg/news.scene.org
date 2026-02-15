@@ -14,7 +14,7 @@
   }
 ?>
 </head>
-<body>
+<body class="<?=_html($BODYCLASS)?>">
 
 <h1>Scene.org Demoscene News Service</h1>
 

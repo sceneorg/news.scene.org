@@ -60,6 +60,7 @@ if(@$_POST["deleteID"])
 }
 
 $TITLE = "admin";
+$BODYCLASS = "admin";
 include_once("header.inc.php");
 
 $items = SQLLib::SelectRows("SELECT * FROM feeds");

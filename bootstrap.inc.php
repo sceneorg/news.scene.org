@@ -22,6 +22,7 @@ $sceneID = new SceneID3( array(
   
 $metaValues = array();
 $TITLE = "";
+$BODYCLASS = "";
 
 $isAdmin = @$_SESSION["userID"] ? !!SQLLib::SelectRow(sprintf_esc("SELECT 1 FROM admins WHERE sceneID = %d",$_SESSION["userID"])) : false;
 

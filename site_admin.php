@@ -22,6 +22,7 @@ if (@$_POST["id"] && @$_POST["decision"])
 }
 
 $TITLE = "admin";
+$BODYCLASS = "admin";
 include_once("header.inc.php");
 
 $items = SQLLib::SelectRows("SELECT * FROM entries WHERE status='pending' ORDER BY id DESC");

@@ -26,6 +26,7 @@ if (@$_POST["id"])
 }
 
 $TITLE = "admin";
+$BODYCLASS = "admin";
 include_once("header.inc.php");
 
 if (@$_GET["id"])
