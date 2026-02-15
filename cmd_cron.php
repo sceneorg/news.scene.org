@@ -16,7 +16,8 @@ $result = $sideload->Request($feed->url);
 
 if ($result)
 {
-  $items = parseFeedToItems($result);
+  $feedTitle = "";
+  $items = parseFeedToItems($result, $feedTitle);
   if ($items)
   {
     $guids = array_map(function($i){ return $i->sourceFeedGUID; }, SQLLib::SelectRows(sprintf_esc("SELECT sourceFeedGUID FROM entries WHERE sourceFeedID = %d",$feed->id)));
@@ -38,4 +39,8 @@ if ($result)
   }
 }
 
-SQLLib::UpdateRow("feeds",array("lastChecked"=>$date,"lastHTTPResult"=>$sideload->httpReturnCode),sprintf_esc("id=%d",$feed->id));
+SQLLib::UpdateRow("feeds",array(
+  "title"=>$feedTitle,
+  "lastChecked"=>$date,
+  "lastHTTPResult"=>$sideload->httpReturnCode
+),sprintf_esc("id=%d",$feed->id));

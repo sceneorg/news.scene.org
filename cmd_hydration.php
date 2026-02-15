@@ -2,6 +2,8 @@
 if (php_sapi_name() != "cli")
   die("commandline only!");
 
+exit();
+
 include_once(dirname(__FILE__) . "/bootstrap.inc.php");
 include_once(dirname(__FILE__) . "/sideload.inc.php");
 

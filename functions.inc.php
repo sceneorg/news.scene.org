@@ -287,7 +287,7 @@ function flushCaches()
   @unlink("cache/feed_cache.atom");
 }
 
-function parseFeedToItems($feedString)
+function parseFeedToItems($feedString, &$outFeedTitle)
 {
   $xml = new SimpleXMLElement($feedString);
   if (!$xml)
@@ -300,13 +300,13 @@ function parseFeedToItems($feedString)
   if ($xml->channel)
   {
     // RSS
-    $feedTitle = $xml->channel->title;
+    $outFeedTitle = $xml->channel->title;
     foreach($xml->channel->item as $item)
     {
       $items[] = array(
         "postDate" => $item->pubDate ? date("Y-m-d H:i:s",strtotime($item->pubDate)) : $date,
         "title" => $item->title,
-        "contents" => sprintf("<p>[ <b>%s</b> ] <a href=\"%s\">%s</a></p>\n%s\n",_html($feedTitle),_html($item->link),_html($item->title),processPost($item->description)),
+        "contents" => sprintf("<p>[ <b>%s</b> ] <a href=\"%s\">%s</a></p>\n%s\n",_html($outFeedTitle),_html($item->link),_html($item->title),processPost($item->description)),
         "guid" => $item->guid
       );
     }
@@ -314,13 +314,13 @@ function parseFeedToItems($feedString)
   else if ($xml->entry)
   {
     // ATOM
-    $feedTitle = $xml->title;
+    $outFeedTitle = $xml->title;
     foreach($xml->entry as $item)
     {
       $items[] = array(
         "postDate" => $item->published ? date("Y-m-d H:i:s",strtotime($item->published)) : $date,
         "title" => $item->title,
-        "contents" => sprintf("<p>[ <b>%s</b> ] <a href=\"%s\">%s</a></p>\n%s\n",_html($feedTitle),_html($item->link["href"]),_html($item->title),processPost($item->content)),
+        "contents" => sprintf("<p>[ <b>%s</b> ] <a href=\"%s\">%s</a></p>\n%s\n",_html($outFeedTitle),_html($item->link["href"]),_html($item->title),processPost($item->content)),
         "guid" => $item->id
       );
     }
