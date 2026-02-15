@@ -7,6 +7,7 @@
   <link rel="alternate" href="<?=ROOT_URL?>feeds/atom/" type="application/atom+xml" title="News feed (Atom)" />
   <link rel="stylesheet" type="text/css" href="<?=ROOT_URL?>style.css?1747393803" media="screen" />
   <link rel="alternate icon" href="<?=ROOT_URL?>favicon.png" type="image/png" />
+  <meta name="theme-color" content="#ff7a00" />
 <?php
   if ($metaValues) foreach ($metaValues as $k=>$v)
   {
