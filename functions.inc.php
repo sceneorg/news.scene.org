@@ -223,6 +223,8 @@ function getFeedCacheRSS()
   $filename = "cache/feed_cache.rss";
   if (!file_exists($filename))
   {
+    SQLLib::Connect();
+    
     $page = 0;
     $perPage = 10;
     $items = array();
@@ -241,6 +243,8 @@ function getFeedCacheAtom()
   $filename = "cache/feed_cache.atom";
   if (!file_exists($filename))
   {
+    SQLLib::Connect();
+    
     $page = 0;
     $perPage = 10;
     $items = array();
@@ -259,6 +263,8 @@ function getFeedCacheJSON()
   $filename = "cache/feed_cache.json";
   if (!file_exists($filename))
   {
+    SQLLib::Connect();
+    
     $page = 0;
     $perPage = 10;
     $items = array();

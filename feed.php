@@ -1,4 +1,5 @@
 <?php
+define("SQLLIB_SUPPRESSCONNECT", true);
 include_once("bootstrap.inc.php");
 
 switch($_GET["format"])
