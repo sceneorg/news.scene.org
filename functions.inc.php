@@ -289,7 +289,7 @@ function flushCaches()
 
 function parseFeedToItems($feedString, &$outFeedTitle)
 {
-  $xml = new SimpleXMLElement($feedString);
+  $xml = @new SimpleXMLElement($feedString);
   if (!$xml)
   {
     return false;
