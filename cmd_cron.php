@@ -14,9 +14,9 @@ if (!$feed) die();
 $sideload = new Sideload();
 $result = $sideload->Request($feed->url);
 
+$feedTitle = "";
 if ($result)
 {
-  $feedTitle = "";
   $items = parseFeedToItems($result, $feedTitle);
   if ($items)
   {
@@ -39,8 +39,12 @@ if ($result)
   }
 }
 
-SQLLib::UpdateRow("feeds",array(
-  "title"=>$feedTitle,
+$a = array(
   "lastChecked"=>$date,
   "lastHTTPResult"=>$sideload->httpReturnCode
-),sprintf_esc("id=%d",$feed->id));
+);
+if ($feedTitle)
+{
+  $a["title"] = $feedTitle;
+}
+SQLLib::UpdateRow("feeds", $a, sprintf_esc("id=%d",$feed->id));
