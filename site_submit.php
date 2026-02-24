@@ -15,7 +15,7 @@ if (@$_POST["newsTitle"] && @$_POST["newsContents"])
     "retrievalDate" => date("Y-m-d H:i:s"),
     "postDate" => date("Y-m-d H:i:s"),
     "title" => $_POST["newsTitle"],
-    "contents" => processPost($_POST["newsContents"]."\n<br/>[<b>Submitted by "._html($SceneIDuser["user"]["display_name"])."</b>]"),
+    "contents" => processPost($_POST["newsContents"]."\n<p>[<b>Submitted by "._html($SceneIDuser["user"]["display_name"])."</b>]</p>"),
     "submittedUserID" => (int)$_SESSION["userID"],
   ));
   header("Location: ".ROOT_URL."submit?success");

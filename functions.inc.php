@@ -107,7 +107,7 @@ function paginator($totalCount,$perPage)
 
 function processPost($text)
 {
-  $text = strip_tags($text,"<a><b><i><strong><em><p><ol><ul><li>");
+  $text = strip_tags($text,"<a><b><i><strong><em><p><ol><ul><li><br>");
   return $text;
 }
 
