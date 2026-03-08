@@ -31,12 +31,18 @@ if (isset($_GET["success"]))
 }
 else
 {
+  $SceneIDuser = $sceneID->Me();
 ?>
 
 <link rel="stylesheet" type="text/css" href="<?=ROOT_URL?>jodit.min.css"/>
 <script src="<?=ROOT_URL?>jodit.min.js"></script>
 
 <form method="post">
+  <label>
+    Submitting news as <b><?=_html($SceneIDuser["user"]["display_name"])?></b>
+    (<a href="<?=ROOT_URL?>/logout/">log out</a>)
+  </label>
+  
   <label>
     News item title:
     <input type="text" name="newsTitle" required="yes" value="<?=_html(@$_POST["newsTitle"])?>"/>
