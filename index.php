@@ -33,7 +33,9 @@ foreach($items as $item)
   printf("  <time datetime='%s' title='%s'>%s</time>\n",$item->retrievalDate,$item->retrievalDate,dateDiffReadable(time(),$item->retrievalDate));
   if ($isAdmin)
   {
-    printf("  <small><a href='".ROOT_URL."admin/entries/?id=%d'>edit</a></small>\n",$item->id);
+    echo "<div class='admin-post-actions'>\n";
+    printf("<a class='edit-link' href='".ROOT_URL."admin/entries/?id=%d'>edit</a></td>\n",$item->id);
+    echo "</div>\n";
   }
   echo "</article>\n";
 }
