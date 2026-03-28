@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="alternate" href="<?=ROOT_URL?>feeds/rss/" type="application/rss+xml" title="News feed (RSS)" />
   <link rel="alternate" href="<?=ROOT_URL?>feeds/atom/" type="application/atom+xml" title="News feed (Atom)" />
-  <link rel="stylesheet" type="text/css" href="<?=ROOT_URL?>style.css?1747393803" media="screen" />
+  <link rel="stylesheet" type="text/css" href="<?=ROOT_URL?>style.css?<?=filemtime("style.css")?>" media="screen" />
   <link rel="alternate icon" href="<?=ROOT_URL?>favicon.png" type="image/png" />
   <meta name="theme-color" content="#ff7a00" />
 <?php
