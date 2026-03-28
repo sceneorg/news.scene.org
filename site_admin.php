@@ -34,13 +34,18 @@ foreach($items as $item)
 {
   echo "<form method='post'>\n";
   printf("<input type='hidden' name='id' value='%d'>\n",$item->id);
-  printf("<input type='submit' name='decision' value='approved'>\n");
-  printf("<input type='submit' name='decision' value='rejected'>\n");
   echo "<article>\n";
   printf("  <h2><a href='%s'>%s</a></h2>\n",_html(getNewsUrl($item)),_html($item->title));
   printf("  <div>%s</div>\n",processPost($item->contents));
   printf("  <time datetime='%s' title='%s'>%s</time>\n",$item->retrievalDate,$item->retrievalDate,dateDiffReadable(time(),$item->retrievalDate));
   echo "</article>\n";
+  
+  echo "<div class='admin-post-actions'>\n";
+  printf("<a class='edit-link' href='".ROOT_URL."admin/entries/?id=%d'>edit</a></td>\n",$item->id);
+  printf("<input type='submit' name='decision' value='approved'>\n");
+  printf("<input type='submit' name='decision' value='rejected'>\n");
+  echo "</div>\n";
+  
   echo "</form>\n\n";
 }
 

@@ -278,18 +278,40 @@ form input[type=submit]:hover
   background: var(--accent);
 }
 
-form input[value="approved"]{
+.admin-post-actions > *
+{
+  display: inline-block;
+  width: 30%;
+  color: white;
+  text-align: center;
+  padding: 0.25em 0.5em;
+  font-weight: 700;
+  font-family: "Sora", system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.5em;
+  border: 0;
+  cursor: pointer;
+}
+
+.admin-post-actions input[value="approved"] {
   background-color: #47704F;
   &:hover {
     background-color: #77907f !important;
   }
-  order: 3;
 }
 
-form input[value="rejected"]{
+.admin-post-actions input[value="rejected"] {
   background-color: #CF2839;
   &:hover {
     background-color: #df4859 !important;
+  }
+}
+
+.admin-post-actions .edit-link {
+  background-color: var(--accent);
+  &:hover {
+    background-color: var(--accent-dark) !important;
+    color: white;
   }
 }
 
