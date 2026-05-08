@@ -24,5 +24,4 @@ $metaValues = array();
 $TITLE = "";
 $BODYCLASS = "";
 
-$isAdmin = @$_SESSION["userID"] ? !!SQLLib::SelectRow(sprintf_esc("SELECT 1 FROM admins WHERE sceneID = %d",$_SESSION["userID"])) : false;
-
+$isAdmin = !defined("SQLLIB_SUPPRESSCONNECT") && @$_SESSION["userID"] ? !!SQLLib::SelectRow(sprintf_esc("SELECT 1 FROM admins WHERE sceneID = %d",$_SESSION["userID"])) : false;
