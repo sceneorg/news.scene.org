@@ -34,7 +34,7 @@ foreach($items as $item)
   if ($isAdmin)
   {
     echo "<div class='admin-post-actions'>\n";
-    printf("<a class='edit-link' href='".ROOT_URL."admin/entries/?id=%d'>edit</a></td>\n",$item->id);
+    printf("<a class='edit-link' href='".ROOT_URL."admin/entries/?id=%d'>edit</a>\n",$item->id);
     echo "</div>\n";
   }
   echo "</article>\n";
