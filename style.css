@@ -315,6 +315,8 @@ form input[type=submit]:hover
   }
 }
 
+#adminFeedList .statuscode-success,
+#adminFeedList .statuscode-error,
 #adminEntryTable .status-approved,
 #adminEntryTable .status-rejected,
 #adminEntryTable .status-pending {
@@ -329,10 +331,12 @@ form input[type=submit]:hover
   width: 120px;
 }
 
+#adminFeedList .statuscode-success,
 #adminEntryTable .status-approved {
   background: #5bc711;
 }
 
+#adminFeedList .statuscode-error,
 #adminEntryTable .status-rejected {
   background: #e37d78;
 }

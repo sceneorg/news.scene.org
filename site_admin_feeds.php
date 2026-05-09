@@ -64,7 +64,7 @@ $BODYCLASS = "admin";
 include_once("header.inc.php");
 
 $items = SQLLib::SelectRows("SELECT * FROM feeds");
-echo "<table>\n";
+echo "<table id='adminFeedList'>\n";
 foreach($items as $item)
 {
   printf("<tr>\n");
