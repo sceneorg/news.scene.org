@@ -321,6 +321,7 @@ form input[type=submit]:hover
   padding: 5px 10px;
   border-radius: 10px;
   font-size: 80%;
+  text-align: center;
 }
 
 #adminEntryTable .time {
