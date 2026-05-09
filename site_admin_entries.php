@@ -80,7 +80,7 @@ else
   foreach($items as $item)
   {
     printf("<tr>\n");
-    printf("  <td><time datetime='%s' title='%s'>%s</time></td>\n",$item->retrievalDate,$item->retrievalDate,dateDiffReadable(time(),$item->retrievalDate));
+    printf("  <td class='time'><time datetime='%s' title='%s'>%s</time></td>\n",$item->retrievalDate,$item->retrievalDate,dateDiffReadable(time(),$item->retrievalDate));
     printf("  <td class='status-%s'>%s</td>\n",$item->status,$item->status);
     // TODO add feed or submitter
     printf("  <td><a href='".ROOT_URL."admin/entries/?id=%d'>%s</a></td>\n",$item->id,_html($item->title));

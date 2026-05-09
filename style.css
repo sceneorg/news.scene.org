@@ -315,6 +315,31 @@ form input[type=submit]:hover
   }
 }
 
+#adminEntryTable .status-approved,
+#adminEntryTable .status-rejected,
+#adminEntryTable .status-pending {
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 80%;
+}
+
+#adminEntryTable .time {
+  text-align: right;
+  width: 120px;
+}
+
+#adminEntryTable .status-approved {
+  background: #5bc711;
+}
+
+#adminEntryTable .status-rejected {
+  background: #e37d78;
+}
+
+#adminEntryTable .status-pending {
+  background: #78bbe3;
+}
+
 main :not(#paginator) ul {
   list-style: none;
   display: flex;
@@ -340,6 +365,9 @@ main form:has(> input[name="deleteID"] ) {
   width: fit-content;
 }
 
+body.admin main {
+  max-width: 90ch;
+}
 
 @media (max-width: 600px) {
   header {
