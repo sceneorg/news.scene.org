@@ -63,6 +63,7 @@ Jodit.make('#newsContents',{
   "height": 400,
   "commandToHotkeys": {},
   "link": { "processVideoLink": false, },
+  "cleanHTML": { "allowedStyles": { '*': [] } },
 });
 </script>
 
