@@ -182,7 +182,8 @@ function strip_tags_and_attributes($text)
 
 function processPost($text)
 {
-  $text = strip_tags_and_attributes($text);
+  $text = strip_tags($text,"<a><b><i><strong><em><p><ol><ul><li><br>");
+  //$text = strip_tags_and_attributes($text);
   return $text;
 }
 
