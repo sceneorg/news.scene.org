@@ -105,9 +105,84 @@ function paginator($totalCount,$perPage)
   }
 }
 
+function strip_tags_and_attributes_xml(&$root)
+{
+  if (!$root)
+  {
+    return;
+  }
+
+  $allowed_tags = array(
+    "a" =>array("href"),
+    "b" =>array(),
+    "i" =>array(),
+    "strong"=>array(),
+    "em"=>array(),
+    "p" =>array(),
+    "ol"=>array(),
+    "ul"=>array(),
+    "li"=>array(),
+    "br"=>array(),
+    "html"=>array(),
+    "body"=>array(),
+    "div"=>array(),
+    "span"=>array(),
+  );
+
+  foreach ($root->childNodes as $tag)
+  {
+    if (@$tag->tagName)
+    {
+      if (!isset($allowed_tags[$tag->tagName]))
+      {
+        $tag->parentNode->removeChild($tag);
+        continue;
+      }
+      else
+      {
+        for($i=0; $i < $tag->attributes->length; $i++) // remove breaks iterator
+        {
+          if (!in_array($tag->attributes[$i]->nodeName, $allowed_tags[$tag->tagName]))
+          {
+            $tag->removeAttribute($tag->attributes[$i]->nodeName);
+            $i--;
+          }
+        }
+      }
+    }
+    strip_tags_and_attributes_xml($tag);
+  }
+}
+
+function strip_tags_and_attributes($text)
+{
+  if (!$text)
+  {
+    return false;
+  }
+
+  $xml = new DOMDocument("1.0", "utf-8");
+  if (!@$xml->loadHTML("<"."?xml version=\"1.0\" encoding=\"UTF-8\"?".">\n<html><body>".$text."</body></html>", LIBXML_HTML_NODEFDTD))
+  {
+    return false;
+  }
+
+  strip_tags_and_attributes_xml($xml);
+  $body = $xml->getElementsByTagName("html")[0]->getElementsByTagName("body")[0];
+  
+  $out = "";
+  
+  foreach($body->childNodes as $node)
+  {
+    $out .= $xml->saveHTML($node);
+  }
+  
+  return $out;
+}
+
 function processPost($text)
 {
-  $text = strip_tags($text,"<a><b><i><strong><em><p><ol><ul><li><br>");
+  $text = strip_tags_and_attributes($text);
   return $text;
 }
 
