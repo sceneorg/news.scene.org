@@ -258,6 +258,7 @@ function formatFeedToAtom($items)
   $year = date("Y");
   $root = ROOT_URL;
   $output .= <<<END
+<!DOCTYPE inline_dtd[<!ENTITY nbsp "&#160;">]>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title>Scene.org News</title>
