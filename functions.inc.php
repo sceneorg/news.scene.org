@@ -187,6 +187,12 @@ function processPost($text)
   return $text;
 }
 
+function sanitizePost($text)
+{
+  $text = str_replace("<br>","<br/>",$text);
+  return $text;
+}
+
 function retrieveFeed(&$items, &$total, $page, $perPage)
 {
   $items = SQLLib::SelectRows(sprintf_esc("SELECT SQL_CALC_FOUND_ROWS id, title, contents, retrievalDate FROM entries WHERE status='approved' ORDER BY retrievalDate DESC, postDate DESC LIMIT %d OFFSET %d",$perPage, $page * $perPage));
@@ -223,7 +229,7 @@ END;
   {
     $id = (int)$item->id;
     $title = _html($item->title);
-    $html = $item->contents;
+    $html = sanitizePost($item->contents);
     $date = date("r",strtotime($item->retrievalDate));
     $url = getNewsUrl($item);
     
@@ -265,7 +271,7 @@ END;
   {
     $id = (int)$item->id;
     $title = _html($item->title);
-    $html = $item->contents;
+    $html = sanitizePost($item->contents);
     $date = date("c",strtotime($item->retrievalDate));
     $url = getNewsUrl($item);
     
@@ -354,6 +360,7 @@ function getFeedCacheJSON()
       $i->pubDate = date("r",strtotime($i->retrievalDate));
       unset($i->retrievalDate);
       $i->url = getNewsUrl($i);
+      $i->contents = sanitizePost($i->contents);
       return $i; 
     }, $items);
     file_put_contents($filename,json_encode($result,JSON_PRETTY_PRINT));
