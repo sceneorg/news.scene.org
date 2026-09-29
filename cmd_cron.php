@@ -9,7 +9,9 @@ $date = date("Y-m-d H:i:s");
 
 $frequency = 60 * 15;
 $feed = SQLLib::SelectRow(sprintf_esc("SELECT * FROM feeds WHERE (lastChecked IS NULL OR TIMESTAMPDIFF(SECOND,lastChecked,'%s') > %d) ORDER BY id",$date,$frequency));
-if (!$feed) die();
+if (!$feed) die("All feeds are good");
+
+printf("Reloading feed '%s'...\n",$feed->url);
 
 $sideload = new Sideload();
 $result = $sideload->Request($feed->url);
