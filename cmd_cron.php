@@ -17,11 +17,13 @@ $sideload = new Sideload();
 $result = $sideload->Request($feed->url);
 
 $feedTitle = "";
+$itemCount = 0;
 if ($result)
 {
   $items = parseFeedToItems($result, $feedTitle);
   if ($items)
   {
+    $itemCount = count($items);
     $guids = array_map(function($i){ return $i->sourceFeedGUID; }, SQLLib::SelectRows(sprintf_esc("SELECT sourceFeedGUID FROM entries WHERE sourceFeedID = %d",$feed->id)));
     foreach($items as $item)
     {
@@ -43,7 +45,8 @@ if ($result)
 
 $a = array(
   "lastChecked"=>$date,
-  "lastHTTPResult"=>$sideload->httpReturnCode
+  "lastHTTPResult"=>$sideload->httpReturnCode,
+  "lastFeedItemCount"=>$itemCount
 );
 if ($feedTitle)
 {

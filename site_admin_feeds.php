@@ -70,7 +70,7 @@ foreach($items as $item)
   printf("<tr>\n");
   printf("  <td><a href='%s'>%s</a></td>\n",_html($item->url),_html($item->title));
   printf("  <td><span class='statuscode-%s'>%d</span></td>\n",$item->lastHTTPResult>=200&&$item->lastHTTPResult<=399?"success":"error",$item->lastHTTPResult);
-  printf("  <td title='%s'>%s</td>\n",_html($item->lastChecked),_html(dateDiffReadable(time(),$item->lastChecked)));
+  printf("  <td title='%s'>%s, %d items</td>\n",_html($item->lastChecked),_html(dateDiffReadable(time(),$item->lastChecked)), $item->lastFeedItemCount);
   printf("  <td><form method='post'><input type='hidden' name='deleteID' value='%d'/><input type='submit' value='Delete'/></form></td>\n",$item->id,_html($item->url),_html($item->url));
   printf("</tr>\n");
 }
