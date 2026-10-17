@@ -44,6 +44,7 @@ if(@$_POST["addUrl"])
           "status" => "approved",
         ));
       }
+      flushCaches();
       header("Location: ".ROOT_URL."admin/feeds/?success");
       exit();
     }
