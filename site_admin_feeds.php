@@ -29,7 +29,8 @@ if(@$_POST["addUrl"])
         "url"=>$_POST["addUrl"],
         "title"=>$feedTitle,
         "lastChecked"=>$date,
-        "lastHTTPResult"=>$sideload->httpReturnCode
+        "lastHTTPResult"=>$sideload->httpReturnCode,
+        "lastFeedItemCount"=>count($items)
       ));
       foreach($items as $item)
       {
